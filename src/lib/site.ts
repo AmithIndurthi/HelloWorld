@@ -1,10 +1,18 @@
+// Canonical site URL. In production set NEXT_PUBLIC_SITE_URL to your domain;
+// on Vercel it falls back to the project's production URL automatically.
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "https://helloworld.example.com");
+
 export const site = {
   name: "Amith Indurthi",
   role: "Web Developer",
   tagline: "I build modern, fast, and accessible web experiences.",
   description:
     "Personal site of Amith Indurthi — a developer learning and building on the modern web with Next.js, React, and TypeScript.",
-  url: "https://helloworld.example.com",
+  url: siteUrl,
   email: "amithkumar.i@gmail.com",
   social: {
     github: "https://github.com/amithindurthi",

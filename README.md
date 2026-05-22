@@ -63,9 +63,29 @@ npm run lint     # run ESLint
 Most content lives in [`src/lib/site.ts`](src/lib/site.ts) — update your name,
 tagline, social links, skills, projects, and blog posts there.
 
+## Configuration
+
+Set the canonical site URL so Open Graph tags, the sitemap, and `robots.txt`
+point at the right domain in production:
+
+```bash
+# .env.local (or your host's environment settings)
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+```
+
+On Vercel this falls back to the project's production URL automatically, so the
+variable is optional there.
+
 ## Deploying
 
-The easiest path is [Vercel](https://vercel.com/): push this repository to
-GitHub, import it, and every push to the main branch ships to production. The
-app also builds to a standard Node server (`npm run build && npm run start`) and
-runs anywhere Node.js is supported.
+The easiest path is [Vercel](https://vercel.com/):
+
+1. Push this repository to GitHub (already done).
+2. Go to [vercel.com/new](https://vercel.com/new) and **Import** the repo.
+3. Vercel auto-detects Next.js — no build configuration needed. Click **Deploy**.
+4. (Optional) Add `NEXT_PUBLIC_SITE_URL` under the project's Environment
+   Variables for canonical URLs.
+
+Every push to the main branch then ships to production, and pull requests get
+their own preview deployments. The app also builds to a standard Node server
+(`npm run build && npm run start`) and runs anywhere Node.js is supported.
