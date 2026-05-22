@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="g1" cx="70%" cy="30%" r="55%"><stop offset="0%" stop-color="#2b5c8a" stop-opacity="0.3"/><stop offset="100%" stop-color="#0d0f14" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g2" cx="15%" cy="75%" r="45%"><stop offset="0%" stop-color="#a63d3d" stop-opacity="0.18"/><stop offset="100%" stop-color="#0d0f14" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0d0f14"/>
+  <rect width="1200" height="630" fill="url(#g1)"/>
+  <rect width="1200" height="630" fill="url(#g2)"/>
+  <!-- Grid -->
+  <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+    <line x1="0" y1="0" x2="60" y2="0" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.08"/>
+    <line x1="0" y1="0" x2="0" y2="60" stroke="#c9a84c" stroke-width="0.5" stroke-opacity="0.08"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <!-- Border -->
+  <rect x="40" y="40" width="1120" height="550" fill="none" stroke="#c9a84c" stroke-width="1" stroke-opacity="0.15" rx="2"/>
+  <!-- Gold rule -->
+  <rect x="80" y="240" width="40" height="1" fill="#c9a84c"/>
+  <!-- Brand mark -->
+  <text x="80" y="200" font-family="Georgia, serif" font-size="28" font-weight="400" fill="#c9a84c" letter-spacing="6" opacity="0.7">TheTAG</text>
+  <!-- Main headline -->
+  <text x="80" y="310" font-family="Georgia, serif" font-size="72" font-weight="300" fill="#f4f1ec" letter-spacing="-1">Bold ideas.</text>
+  <text x="80" y="400" font-family="Georgia, serif" font-size="72" font-weight="300" font-style="italic" fill="#c9a84c" letter-spacing="-1">Real impact.</text>
+  <!-- Tagline -->
+  <text x="80" y="468" font-family="'Arial', sans-serif" font-size="18" font-weight="300" fill="#f4f1ec" opacity="0.5" letter-spacing="1">Engineering Digital Sovereignty</text>
+  <!-- URL -->
+  <text x="80" y="545" font-family="'Courier New', monospace" font-size="14" fill="#c9a84c" opacity="0.45" letter-spacing="2">TH3TAG.COM</text>
+  <!-- Right side decorative pillar dots -->
+  <circle cx="980" cy="260" r="4" fill="#a63d3d" opacity="0.6"/>
+  <circle cx="1010" cy="260" r="4" fill="#2b5c8a" opacity="0.6"/>
+  <circle cx="1040" cy="260" r="4" fill="#1e6b5a" opacity="0.6"/>
+  <text x="980" y="295" font-family="Georgia, serif" font-size="13" fill="#f4f1ec" opacity="0.3" letter-spacing="3">HEART · MIND · TECHNOLOGY</text>
+  <!-- Decorative number accent -->
+  <text x="900" y="430" font-family="Georgia, serif" font-size="200" font-weight="300" fill="#c9a84c" opacity="0.04">5</text>
+</svg>

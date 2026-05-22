@@ -1,67 +1,69 @@
-# HelloWorld
+# TheTAG Ventures & Partners — Website
 
-My first project on the web — a modern, multi-page personal website built while
-learning web technologies and how to build and deploy real applications.
+The marketing site for TheTAG Ventures & Partners, built as a modern multi-page
+Next.js application. Human-centered transformation for the age of intelligent
+systems — Heart, Mind, and Technology.
 
 ## Tech stack
 
-- **[Next.js 16](https://nextjs.org/)** (App Router)
-- **[React 19](https://react.dev/)** with Server Components & Server Actions
+- **[Next.js 16](https://nextjs.org/)** (App Router, Server Components, Server Actions)
+- **[React 19](https://react.dev/)**
 - **[TypeScript](https://www.typescriptlang.org/)**
-- **[Tailwind CSS v4](https://tailwindcss.com/)**
+- **[next/font](https://nextjs.org/docs/app/building-your-application/optimizing/fonts)** — Cormorant Garamond, DM Sans, DM Mono (self-hosted, zero layout shift)
+- A bespoke, hand-authored CSS design system (no UI framework)
+
+## Pages
+
+| Route | Page |
+| --- | --- |
+| `/` | Home — framework summary, three practices, process, in-house venture, CTA |
+| `/who-we-are` | The three founders, origin story, convictions |
+| `/framework` | Heart · Mind · Technology, the integrated framework |
+| `/how-we-work` | Vision & mission, the four-phase methodology, engagement models, standards |
+| `/technology-advisory` | Service practice — Tech-Led (Amith) |
+| `/strategic-ventures` | Service practice — All-Pillars (Kiran) |
+| `/design-studio` | Service practice — Mind-Led (Manasa) |
+| `/contact` | Contact form + ways to start |
+| `/thank-you` | Post-submission confirmation (noindex) |
 
 ## Features
 
-- **Multi-page site** — Home, About, Projects, Blog, and Contact, sharing a
-  common navbar and footer via a root layout.
-- **Dark mode** — class-based theme toggle persisted to `localStorage`, with an
-  inline script to prevent a flash of the wrong theme on load.
-- **Dynamic blog** — individual post pages (`/blog/[slug]`) pre-rendered at
-  build time with `generateStaticParams`.
-- **Contact form** — a React Server Action validates input on the server and
-  reports success/errors using `useActionState` and `useFormStatus`.
-- **SEO** — per-page metadata, Open Graph/Twitter tags, plus generated
-  `sitemap.xml` and `robots.txt`.
-- **Responsive & accessible** — mobile menu, semantic markup, keyboard-friendly
-  controls, and a fully responsive layout.
+- **Shared layout** — fixed blurred nav with active-link highlighting and a
+  responsive mobile menu, plus a shared footer and cookie-consent banner.
+- **Scroll reveal** — elements with the `fade-up` class animate in via an
+  `IntersectionObserver`, re-armed on every navigation.
+- **Contact form** — a React **Server Action** validates the submission
+  server-side (with a honeypot) and redirects to `/thank-you`; the client form
+  reports field errors via `useActionState` / `useFormStatus`.
+- **Interactive FAQ** accordions on each service page.
+- **SEO** — per-page metadata, Open Graph/Twitter tags, JSON-LD-ready content,
+  a generated `sitemap.xml`, and a `robots.txt` that disallows `/thank-you`.
+- Fully responsive down to mobile, matching the original design breakpoints.
 
 ## Project structure
 
 ```
 src/
 ├─ app/
-│  ├─ layout.tsx          # Root layout: fonts, theme script, navbar, footer
-│  ├─ page.tsx            # Home
-│  ├─ about/page.tsx      # About + skills + timeline
-│  ├─ projects/page.tsx   # Projects grid
-│  ├─ blog/
-│  │  ├─ page.tsx         # Blog index
-│  │  └─ [slug]/page.tsx  # Individual post (SSG)
+│  ├─ layout.tsx              # Fonts, metadata, nav/footer/cookie/reveal
+│  ├─ page.tsx                # Home
+│  ├─ who-we-are/page.tsx
+│  ├─ framework/page.tsx
+│  ├─ how-we-work/page.tsx
+│  ├─ technology-advisory/page.tsx
+│  ├─ strategic-ventures/page.tsx
+│  ├─ design-studio/page.tsx
 │  ├─ contact/
-│  │  ├─ page.tsx         # Contact page
-│  │  └─ actions.ts       # Server Action for the form
-│  ├─ not-found.tsx       # Custom 404
-│  ├─ sitemap.ts          # Generated sitemap
-│  ├─ robots.ts           # Generated robots.txt
-│  └─ globals.css         # Design tokens + Tailwind theme
-├─ components/            # Navbar, Footer, ThemeToggle, ContactForm
-└─ lib/site.ts            # Site config and content (projects, posts, skills)
+│  │  ├─ page.tsx
+│  │  └─ actions.ts           # Server Action for the contact form
+│  ├─ thank-you/page.tsx
+│  ├─ not-found.tsx           # Custom 404
+│  ├─ sitemap.ts / robots.ts
+│  └─ globals.css             # Full design system + per-page styles
+├─ components/                # Nav, Footer, CookieBanner, FadeUpObserver, Faq, ContactForm
+└─ lib/site.ts                # Org info + navigation config
+public/                       # favicon.svg, og-image.svg
 ```
-
-## Getting started
-
-```bash
-npm install      # install dependencies
-npm run dev      # start the dev server at http://localhost:3000
-npm run build    # create a production build
-npm run start    # serve the production build
-npm run lint     # run ESLint
-```
-
-## Customizing
-
-Most content lives in [`src/lib/site.ts`](src/lib/site.ts) — update your name,
-tagline, social links, skills, projects, and blog posts there.
 
 ## Configuration
 
@@ -70,22 +72,23 @@ point at the right domain in production:
 
 ```bash
 # .env.local (or your host's environment settings)
-NEXT_PUBLIC_SITE_URL=https://your-domain.com
+NEXT_PUBLIC_SITE_URL=https://th3tag.com
 ```
 
-On Vercel this falls back to the project's production URL automatically, so the
-variable is optional there.
+On Vercel this falls back to the project's production URL automatically.
+
+## Getting started
+
+```bash
+npm install      # install dependencies
+npm run dev      # dev server at http://localhost:3000
+npm run build    # production build
+npm run start    # serve the production build
+npm run lint     # run ESLint
+```
 
 ## Deploying
 
-The easiest path is [Vercel](https://vercel.com/):
-
-1. Push this repository to GitHub (already done).
-2. Go to [vercel.com/new](https://vercel.com/new) and **Import** the repo.
-3. Vercel auto-detects Next.js — no build configuration needed. Click **Deploy**.
-4. (Optional) Add `NEXT_PUBLIC_SITE_URL` under the project's Environment
-   Variables for canonical URLs.
-
-Every push to the main branch then ships to production, and pull requests get
-their own preview deployments. The app also builds to a standard Node server
-(`npm run build && npm run start`) and runs anywhere Node.js is supported.
+Push to GitHub and import the repo on [Vercel](https://vercel.com/new) — Next.js
+is auto-detected, no build configuration needed. The app also runs on any
+Node.js host via `npm run build && npm run start`.

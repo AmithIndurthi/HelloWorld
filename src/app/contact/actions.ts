@@ -1,36 +1,48 @@
 "use server";
 
+import { redirect } from "next/navigation";
+
 export type ContactState = {
-  status: "idle" | "success" | "error";
+  ok: boolean;
   message: string;
-  errors?: Partial<Record<"name" | "email" | "message", string>>;
+  errors?: Partial<Record<"first_name" | "last_name" | "email" | "message", string>>;
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function submitContact(
-  _prevState: ContactState,
+  _prev: ContactState,
   formData: FormData,
 ): Promise<ContactState> {
-  const name = String(formData.get("name") ?? "").trim();
+  // Honeypot — silently accept and redirect if a bot filled the hidden field.
+  if (String(formData.get("bot-field") ?? "").trim() !== "") {
+    redirect("/thank-you");
+  }
+
+  const firstName = String(formData.get("first_name") ?? "").trim();
+  const lastName = String(formData.get("last_name") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim();
   const message = String(formData.get("message") ?? "").trim();
 
   const errors: ContactState["errors"] = {};
-  if (name.length < 2) errors.name = "Please enter your name.";
-  if (!EMAIL_RE.test(email)) errors.email = "Please enter a valid email address.";
-  if (message.length < 10) errors.message = "Message should be at least 10 characters.";
+  if (firstName.length < 1) errors.first_name = "Required";
+  if (lastName.length < 1) errors.last_name = "Required";
+  if (!EMAIL_RE.test(email)) errors.email = "Enter a valid email";
+  if (message.length < 10) errors.message = "Tell us a little more (10+ characters)";
 
   if (Object.keys(errors).length > 0) {
-    return { status: "error", message: "Please fix the errors below.", errors };
+    return { ok: false, message: "Please check the highlighted fields.", errors };
   }
 
-  // In a real app this is where you'd send an email or persist the message
-  // (e.g. via Resend, Nodemailer, or a database). We log it for now.
-  console.log("New contact submission:", { name, email, message });
+  // In production, send this to email/CRM (e.g. Resend) or persist it.
+  console.log("New contact submission:", {
+    firstName,
+    lastName,
+    email,
+    organization: String(formData.get("organization") ?? "").trim(),
+    practiceArea: String(formData.get("practice_area") ?? "").trim(),
+    message,
+  });
 
-  return {
-    status: "success",
-    message: `Thanks, ${name}! Your message has been received. I'll get back to you soon.`,
-  };
+  redirect("/thank-you");
 }
